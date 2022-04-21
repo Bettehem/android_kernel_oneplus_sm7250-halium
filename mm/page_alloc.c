@@ -4574,11 +4574,23 @@ __alloc_pages_slowpath(gfp_t gfp_mask, unsigned int order,
 	int no_progress_loops;
 	unsigned int cpuset_mems_cookie;
 	int reserve_flags;
-        bool woke_kswapd = false;
+	bool woke_kswapd = false;
 	bool used_vmpressure = false;
+
 #ifdef CONFIG_ONEPLUS_MEM_MONITOR
 	unsigned long oneplus_alloc_start = jiffies;
 #endif
+
+	/*
+	 * In the slowpath, we sanity check order to avoid ever trying to
+	 * reclaim >= MAX_ORDER areas which will never succeed. Callers may
+	 * be using allocators in order of preference for an area that is
+	 * too large.
+	 */
+	if (order >= MAX_ORDER) {
+		WARN_ON_ONCE(!(gfp_mask & __GFP_NOWARN));
+		return NULL;
+	}
 
 	/*
 	 * We also sanity check to catch abuse of atomic reserves being used by
@@ -4612,7 +4624,7 @@ retry_cpuset:
 	if (!ac->preferred_zoneref->zone)
 		goto nopage;
 
-	if (alloc_flags & ALLOC_KSWAPD) {
+	if (gfp_mask & __GFP_KSWAPD_RECLAIM) {
 		if (!woke_kswapd) {
 			atomic_long_inc(&kswapd_waiters);
 			woke_kswapd = true;
