@@ -64,6 +64,7 @@ static int esd_black_count;
 static int esd_greenish_count;
 static struct dsi_display *primary_display;
 static char reg_read_value[128] = {0};
+struct drm_panel *lcd_active_panel;
 /* jack.jiao@MM 20200612 add for distinguish seed value for normal light and low light*/
 static seed_low_backlight = 40;
 
