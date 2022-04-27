@@ -93,6 +93,7 @@ struct qpnp_pon {
 	ktime_t			kpdpwr_last_release_time;
 	struct notifier_block   pon_nb;
 	bool			legacy_hard_reset_offset;
+	bool			log_kpd_event;
 };
 
 enum pon_restart_reason {
