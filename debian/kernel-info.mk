@@ -15,7 +15,7 @@ KERNEL_BOOTIMAGE_CMDLINE = androidboot.hardware=qcom androidboot.console=ttyMSM0
 
 # Slug for the device vendor. This is going to be used in the KERNELRELASE
 # and package names.
-DEVICE_VENDOR = vendor
+DEVICE_VENDOR = oneplus
 
 # Slug for the device model. Like above.
 DEVICE_MODEL = avicii
@@ -48,15 +48,15 @@ KERNEL_IMAGE_WITH_DTB = 1
 # Path to the DTB
 # If you leave this undefined, an attempt to find it automatically
 # will be made.
-#KERNEL_IMAGE_DTB = arch/arm64/boot/dts/qcom/my_dtb.dtb
+KERNEL_IMAGE_DTB = arch/arm64/boot/dts/vendor/qcom/lito.dtb
 
 # Whether to include a DTB Overlay. Use 0 (no) or 1.
-KERNEL_IMAGE_WITH_DTB_OVERLAY = 0
+KERNEL_IMAGE_WITH_DTB_OVERLAY = 1
 
 # Path to the DTB overlay.
 # If you leave this undefined, an attempt to find it automatically
 # will be made.
-#KERNEL_IMAGE_DTB_OVERLAY = arch/arm64/boot/dts/qcom/my_overlay.dtbo
+KERNEL_IMAGE_DTB_OVERLAY = arch/arm64/boot/dts/vendor/qcom/avicii-overlay.dtbo
 
 # Whether to include the DTB Overlay into the kernel image
 # Use 0 (no, default) or 1.
@@ -166,12 +166,12 @@ BUILD_CC = clang
 
 # Extra paths to prepend to the PATH variable. You'll probably want
 # to specify the clang path here (the default).
-BUILD_PATH = /usr/lib/llvm-android-6.0-4691093/bin
+BUILD_PATH = /usr/lib/llvm-android-9.0-r353983c/bin
 
 # Extra packages to add to the Build-Depends section. Mainline builds
 # can have this section empty, unless cross-building.
 # The default is enough to install the Android toolchain, including clang.
-DEB_TOOLCHAIN = linux-initramfs-halium-generic:arm64, binutils-aarch64-linux-gnu, clang-android-6.0-4691093, gcc-4.9-aarch64-linux-android, g++-4.9-aarch64-linux-android, libgcc-4.9-dev-aarch64-linux-android-cross, python-is-python3
+DEB_TOOLCHAIN = linux-initramfs-halium-generic:arm64, binutils-aarch64-linux-gnu, clang-android-6.0-4691093, gcc-4.9-aarch64-linux-android, g++-4.9-aarch64-linux-android, libgcc-4.9-dev-aarch64-linux-android-cross, python-is-python3, clang-android-9.0-r353983c
 
 # Where we're building on
 DEB_BUILD_ON = amd64
@@ -183,4 +183,4 @@ DEB_BUILD_FOR = arm64
 KERNEL_ARCH = arm64
 
 # Kernel target to build
-KERNEL_BUILD_TARGET = Image.gz-dtb
+KERNEL_BUILD_TARGET = Image.gz
